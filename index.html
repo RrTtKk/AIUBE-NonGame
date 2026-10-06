@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>あいうべ体操 非ゲーム条件</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         カメラ映像
+
+         script.js の
+         SHOW_CAMERA_PREVIEW = false
+         の場合は参加者には表示しない。
+
+         カメラ処理自体は非表示でも継続する。
+    ========================================== -->
+    <div id="cameraContainer">
+
+        <video id="webcam"
+               autoplay
+               playsinline
+               muted></video>
+
+    </div>
+
+
+    <!-- =========================================
+         初期画面
+    ========================================== -->
+    <main id="setupScreen"
+          class="screen">
+
+        <div class="panel">
+
+            <h1>
+                あいうべ体操
+            </h1>
+
+            <h2>
+                実験準備
+            </h2>
+
+
+            <div class="instructionBox">
+
+                <p>
+                    画面に表示される
+                    「あ」「い」「う」「べ」に合わせて
+                    口を動かしてください。
+                </p>
+
+                <p>
+                    最初に口の動きを確認します。
+                </p>
+
+                <p>
+                    その後、実験を開始します。
+                </p>
+
+            </div>
+
+
+            <div class="inputGroup">
+
+                <label for="sessionIdInput">
+                    Session ID
+                </label>
+
+                <input type="text"
+                       id="sessionIdInput"
+                       placeholder="例：P001"
+                       autocomplete="off">
+
+            </div>
+
+
+            <button id="prepareCameraButton"
+                    class="primaryButton">
+                カメラを準備
+            </button>
+
+
+            <p id="cameraStatus"
+               class="statusText">
+                カメラはまだ準備されていません。
+            </p>
+
+
+            <button id="startCalibrationButton"
+                    class="primaryButton"
+                    disabled>
+                口の動きを確認する
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         キャリブレーション画面
+    ========================================== -->
+    <main id="calibrationScreen"
+          class="screen hidden">
+
+        <div class="panel">
+
+            <h2>
+                口の動きを確認します
+            </h2>
+
+
+            <div id="calibrationMouth"
+                 class="largeMouth">
+                あ
+            </div>
+
+
+            <p id="calibrationInstruction"
+               class="largeInstruction">
+                口を大きく開けてください
+            </p>
+
+
+            <p id="calibrationStatus"
+               class="statusText">
+                準備...
+            </p>
+
+
+            <p id="calibrationProgressText"
+               class="progressText">
+                1 / 4
+            </p>
+
+
+            <div class="progressBarOuter">
+
+                <div id="calibrationProgressBar"
+                     class="progressBarInner"></div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         キャリブレーション完了
+    ========================================== -->
+    <main id="readyScreen"
+          class="screen hidden">
+
+        <div class="panel">
+
+            <h1>
+                準備完了
+            </h1>
+
+            <p>
+                口の動きの確認が完了しました。
+            </p>
+
+            <p>
+                実験開始ボタンを押してください。
+            </p>
+
+
+            <button id="startExperimentButton"
+                    class="primaryButton">
+                実験開始
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         カウントダウン
+    ========================================== -->
+    <main id="countdownScreen"
+          class="screen hidden">
+
+        <div id="countdownText"
+             class="countdownText">
+            3
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         実験画面
+    ========================================== -->
+    <main id="experimentScreen"
+          class="screen hidden">
+
+        <div class="experimentPanel">
+
+            <p id="setDisplay"
+               class="setDisplay">
+                1 / 10
+            </p>
+
+
+            <div id="mouthDisplay"
+                 class="experimentMouth">
+                あ
+            </div>
+
+
+            <p class="experimentInstruction">
+                表示された口の形をしてください
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         終了画面
+    ========================================== -->
+    <main id="finishScreen"
+          class="screen hidden">
+
+        <div class="panel">
+
+            <h1>
+                実験終了
+            </h1>
+
+            <p>
+                ご協力ありがとうございました。
+            </p>
+
+
+            <button id="sendDataButton"
+                    class="primaryButton">
+                データを送信
+            </button>
+
+
+            <button id="backupButton"
+                    class="secondaryButton">
+                バックアップを保存
+            </button>
+
+
+            <p id="sendStatus"
+               class="statusText">
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         JavaScript
+    ========================================== -->
+    <script type="module"
+            src="script.js"></script>
+
+</body>
+
+</html>
