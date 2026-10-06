@@ -4,47 +4,401 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>あいうべ体操 非ゲーム条件</title>
 
-    <link rel="stylesheet"
-          href="style.css">
+
+    <!-- =====================================================
+         CSS
+         別ファイルにはせず、このHTML内にすべて記述
+    ====================================================== -->
+
+    <style>
+
+        /* ====================================================
+           基本設定
+        ==================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+
+            width: 100%;
+            min-height: 100%;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                "Hiragino Kaku Gothic ProN",
+                "Yu Gothic",
+                Meiryo,
+                sans-serif;
+
+            background: #f5f5f5;
+            color: #222;
+        }
+
+
+        /* ====================================================
+           Screen
+        ==================================================== */
+
+        .screen {
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 24px;
+        }
+
+
+        .hidden {
+            display: none !important;
+        }
+
+
+        /* ====================================================
+           Panel
+        ==================================================== */
+
+        .panel {
+            width: 100%;
+            max-width: 700px;
+
+            padding: 40px;
+
+            background: white;
+
+            border: 1px solid #ddd;
+            border-radius: 12px;
+
+            text-align: center;
+        }
+
+
+        .panel h1 {
+            margin-top: 0;
+
+            font-size: 36px;
+        }
+
+
+        .panel h2 {
+            font-size: 28px;
+        }
+
+
+        /* ====================================================
+           説明
+        ==================================================== */
+
+        .instructionBox {
+            margin: 30px 0;
+            padding: 20px;
+
+            background: #f7f7f7;
+
+            border-radius: 8px;
+
+            text-align: left;
+        }
+
+
+        .instructionBox p {
+            line-height: 1.8;
+        }
+
+
+        /* ====================================================
+           Session ID
+        ==================================================== */
+
+        .inputGroup {
+            margin: 30px 0;
+        }
+
+
+        .inputGroup label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+        }
+
+
+        .inputGroup input {
+            width: 100%;
+            max-width: 400px;
+
+            padding: 12px;
+
+            font-size: 20px;
+
+            border: 1px solid #aaa;
+            border-radius: 6px;
+        }
+
+
+        /* ====================================================
+           Button
+        ==================================================== */
+
+        button {
+            display: block;
+
+            width: 100%;
+            max-width: 400px;
+
+            margin: 16px auto;
+
+            padding: 14px 20px;
+
+            font-size: 20px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+        }
+
+
+        .primaryButton {
+            background: #222;
+            color: white;
+
+            border: none;
+        }
+
+
+        .secondaryButton {
+            background: white;
+            color: #222;
+
+            border: 1px solid #777;
+        }
+
+
+        button:disabled {
+            opacity: 0.4;
+
+            cursor: not-allowed;
+        }
+
+
+        /* ====================================================
+           Status
+        ==================================================== */
+
+        .statusText {
+            margin: 20px 0;
+
+            font-size: 18px;
+        }
+
+
+        /* ====================================================
+           Camera
+        ==================================================== */
+
+        #cameraContainer {
+            position: fixed;
+
+            top: 20px;
+            left: 20px;
+
+            width: 220px;
+
+            z-index: 1000;
+
+            background: black;
+
+            border-radius: 8px;
+
+            overflow: hidden;
+        }
+
+
+        #webcam {
+            display: block;
+
+            width: 100%;
+            height: auto;
+
+            transform: scaleX(-1);
+        }
+
+
+        /* ====================================================
+           Calibration
+        ==================================================== */
+
+        .largeMouth {
+            margin: 30px 0;
+
+            font-size: 140px;
+            font-weight: bold;
+        }
+
+
+        .largeInstruction {
+            font-size: 26px;
+        }
+
+
+        .progressText {
+            margin-top: 30px;
+
+            font-size: 22px;
+        }
+
+
+        .progressBarOuter {
+            width: 100%;
+            height: 24px;
+
+            margin-top: 20px;
+
+            background: #ddd;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+        }
+
+
+        .progressBarInner {
+            width: 0%;
+            height: 100%;
+
+            background: #444;
+        }
+
+
+        /* ====================================================
+           Countdown
+        ==================================================== */
+
+        .countdownText {
+            font-size: 180px;
+
+            font-weight: bold;
+        }
+
+
+        /* ====================================================
+           Experiment
+        ==================================================== */
+
+        .experimentPanel {
+            width: 100%;
+
+            text-align: center;
+        }
+
+
+        .setDisplay {
+            font-size: 28px;
+        }
+
+
+        .experimentMouth {
+            margin: 30px 0;
+
+            font-size: 200px;
+            font-weight: bold;
+        }
+
+
+        .experimentInstruction {
+            font-size: 24px;
+        }
+
+
+        /* ====================================================
+           Smartphone
+        ==================================================== */
+
+        @media (max-width: 600px) {
+
+            .panel {
+                padding: 24px 18px;
+            }
+
+
+            .largeMouth {
+                font-size: 110px;
+            }
+
+
+            .experimentMouth {
+                font-size: 160px;
+            }
+
+
+            .countdownText {
+                font-size: 140px;
+            }
+
+
+            #cameraContainer {
+                width: 140px;
+
+                top: 10px;
+                left: 10px;
+            }
+        }
+
+    </style>
 </head>
+
 
 <body>
 
-    <!-- =========================================
-         カメラ映像
 
-         script.js の
-         SHOW_CAMERA_PREVIEW = false
-         の場合は参加者には表示しない。
+    <!-- =====================================================
+         カメラ
+    ====================================================== -->
 
-         カメラ処理自体は非表示でも継続する。
-    ========================================== -->
     <div id="cameraContainer">
 
-        <video id="webcam"
-               autoplay
-               playsinline
-               muted></video>
+        <video
+            id="webcam"
+            autoplay
+            playsinline
+            muted
+        ></video>
 
     </div>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          初期画面
-    ========================================== -->
-    <main id="setupScreen"
-          class="screen">
+    ====================================================== -->
+
+    <main
+        id="setupScreen"
+        class="screen"
+    >
 
         <div class="panel">
 
             <h1>
                 あいうべ体操
             </h1>
+
 
             <h2>
                 実験準備
@@ -76,29 +430,38 @@
                     Session ID
                 </label>
 
-                <input type="text"
-                       id="sessionIdInput"
-                       placeholder="例：P001"
-                       autocomplete="off">
+
+                <input
+                    type="text"
+                    id="sessionIdInput"
+                    placeholder="例：P001"
+                    autocomplete="off"
+                >
 
             </div>
 
 
-            <button id="prepareCameraButton"
-                    class="primaryButton">
+            <button
+                id="prepareCameraButton"
+                class="primaryButton"
+            >
                 カメラを準備
             </button>
 
 
-            <p id="cameraStatus"
-               class="statusText">
+            <p
+                id="cameraStatus"
+                class="statusText"
+            >
                 カメラはまだ準備されていません。
             </p>
 
 
-            <button id="startCalibrationButton"
-                    class="primaryButton"
-                    disabled>
+            <button
+                id="startCalibrationButton"
+                class="primaryButton"
+                disabled
+            >
                 口の動きを確認する
             </button>
 
@@ -107,11 +470,14 @@
     </main>
 
 
-    <!-- =========================================
-         キャリブレーション画面
-    ========================================== -->
-    <main id="calibrationScreen"
-          class="screen hidden">
+    <!-- =====================================================
+         キャリブレーション
+    ====================================================== -->
+
+    <main
+        id="calibrationScreen"
+        class="screen hidden"
+    >
 
         <div class="panel">
 
@@ -120,34 +486,44 @@
             </h2>
 
 
-            <div id="calibrationMouth"
-                 class="largeMouth">
+            <div
+                id="calibrationMouth"
+                class="largeMouth"
+            >
                 あ
             </div>
 
 
-            <p id="calibrationInstruction"
-               class="largeInstruction">
+            <p
+                id="calibrationInstruction"
+                class="largeInstruction"
+            >
                 口を大きく開けてください
             </p>
 
 
-            <p id="calibrationStatus"
-               class="statusText">
+            <p
+                id="calibrationStatus"
+                class="statusText"
+            >
                 準備...
             </p>
 
 
-            <p id="calibrationProgressText"
-               class="progressText">
+            <p
+                id="calibrationProgressText"
+                class="progressText"
+            >
                 1 / 4
             </p>
 
 
             <div class="progressBarOuter">
 
-                <div id="calibrationProgressBar"
-                     class="progressBarInner"></div>
+                <div
+                    id="calibrationProgressBar"
+                    class="progressBarInner"
+                ></div>
 
             </div>
 
@@ -156,11 +532,14 @@
     </main>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          キャリブレーション完了
-    ========================================== -->
-    <main id="readyScreen"
-          class="screen hidden">
+    ====================================================== -->
+
+    <main
+        id="readyScreen"
+        class="screen hidden"
+    >
 
         <div class="panel">
 
@@ -168,17 +547,21 @@
                 準備完了
             </h1>
 
+
             <p>
                 口の動きの確認が完了しました。
             </p>
+
 
             <p>
                 実験開始ボタンを押してください。
             </p>
 
 
-            <button id="startExperimentButton"
-                    class="primaryButton">
+            <button
+                id="startExperimentButton"
+                class="primaryButton"
+            >
                 実験開始
             </button>
 
@@ -187,36 +570,48 @@
     </main>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          カウントダウン
-    ========================================== -->
-    <main id="countdownScreen"
-          class="screen hidden">
+    ====================================================== -->
 
-        <div id="countdownText"
-             class="countdownText">
+    <main
+        id="countdownScreen"
+        class="screen hidden"
+    >
+
+        <div
+            id="countdownText"
+            class="countdownText"
+        >
             3
         </div>
 
     </main>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          実験画面
-    ========================================== -->
-    <main id="experimentScreen"
-          class="screen hidden">
+    ====================================================== -->
+
+    <main
+        id="experimentScreen"
+        class="screen hidden"
+    >
 
         <div class="experimentPanel">
 
-            <p id="setDisplay"
-               class="setDisplay">
+            <p
+                id="setDisplay"
+                class="setDisplay"
+            >
                 1 / 10
             </p>
 
 
-            <div id="mouthDisplay"
-                 class="experimentMouth">
+            <div
+                id="mouthDisplay"
+                class="experimentMouth"
+            >
                 あ
             </div>
 
@@ -230,11 +625,14 @@
     </main>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          終了画面
-    ========================================== -->
-    <main id="finishScreen"
-          class="screen hidden">
+    ====================================================== -->
+
+    <main
+        id="finishScreen"
+        class="screen hidden"
+    >
 
         <div class="panel">
 
@@ -242,37 +640,2956 @@
                 実験終了
             </h1>
 
+
             <p>
                 ご協力ありがとうございました。
             </p>
 
 
-            <button id="sendDataButton"
-                    class="primaryButton">
+            <button
+                id="sendDataButton"
+                class="primaryButton"
+            >
                 データを送信
             </button>
 
 
-            <button id="backupButton"
-                    class="secondaryButton">
+            <button
+                id="backupButton"
+                class="secondaryButton"
+            >
                 バックアップを保存
             </button>
 
 
-            <p id="sendStatus"
-               class="statusText">
-            </p>
+            <p
+                id="sendStatus"
+                class="statusText"
+            ></p>
 
         </div>
 
     </main>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          JavaScript
-    ========================================== -->
-    <script type="module"
-            src="script.js"></script>
+    ====================================================== -->
+
+    <script type="module">
+
+        // ====================================================
+        // MediaPipe Tasks Vision
+        // ====================================================
+
+        import {
+            FaceLandmarker,
+            FilesetResolver
+        } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/vision_bundle.mjs";
+
+
+        // ====================================================
+        // 設定
+        // ====================================================
+
+
+        // ----------------------------------------------------
+        // Google Apps Script WebアプリURL
+        // ----------------------------------------------------
+        //
+        // GASをウェブアプリとしてデプロイした後、
+        // /exec で終わるURLをここへ貼り付ける。
+        //
+        // 例：
+        //
+        // const GAS_URL =
+        //     "https://script.google.com/macros/s/xxxx/exec";
+        //
+        // ★★★ ここを変更する ★★★
+        // ----------------------------------------------------
+
+        const GAS_URL =
+            "https://script.google.com/macros/s/AKfycbwjQ6n9XwMte6r_XrpXKHKoEamcVkgT-ybGy8IFQgSjNd3id2DtUwYk0-q2Xne1_bwAMQ/exec";
+
+
+        // ----------------------------------------------------
+        // カメラプレビュー
+        // ----------------------------------------------------
+        //
+        // false:
+        //     参加者にはカメラ映像を表示しない。
+        //
+        // true:
+        //     左上にカメラ映像を表示する。
+        //
+        // カメラ処理自体はfalseでも動作する。
+        // ----------------------------------------------------
+
+        const SHOW_CAMERA_PREVIEW =
+            false;
+
+
+        // ----------------------------------------------------
+        // キャリブレーション
+        // ----------------------------------------------------
+        //
+        // Unity版：
+        //
+        // prepareTime = 0.5秒
+        // measurementTime = 1.5秒
+        // ----------------------------------------------------
+
+        const CALIBRATION_PREPARE_TIME_MS =
+            500;
+
+
+        const CALIBRATION_MEASUREMENT_TIME_MS =
+            1500;
+
+
+        // ----------------------------------------------------
+        // Neutral
+        // ----------------------------------------------------
+        //
+        // Unity:
+        //
+        // mouthDeadZone = 0.12
+        //
+        // max(Jaw, Smile, Pucker) < 0.12
+        // の場合Neutral。
+        // ----------------------------------------------------
+
+        const MOUTH_DEAD_ZONE =
+            0.12;
+
+
+        // ----------------------------------------------------
+        // BE Stability
+        // ----------------------------------------------------
+        //
+        // Unity:
+        //
+        // beHoldTime = 0.15秒
+        // ----------------------------------------------------
+
+        const BE_HOLD_TIME_MS =
+            150;
+
+
+        // ----------------------------------------------------
+        // 実験
+        // ----------------------------------------------------
+
+        const TOTAL_SETS =
+            10;
+
+
+        const MOUTHS_PER_SET =
+            4;
+
+
+        const TOTAL_TRIALS =
+            TOTAL_SETS *
+            MOUTHS_PER_SET;
+
+
+        // 1口形 = 1秒
+        const MOUTH_DURATION_MS =
+            1000;
+
+
+        // ----------------------------------------------------
+        // MouthLog
+        // ----------------------------------------------------
+        //
+        // 約0.1秒ごとに最新推論値を記録。
+        //
+        // MediaPipeの推論周期とは別。
+        // ----------------------------------------------------
+
+        const LOG_INTERVAL_MS =
+            100;
+
+
+        // ----------------------------------------------------
+        // 口形順
+        // ----------------------------------------------------
+
+        const MOUTH_SEQUENCE = [
+
+            "A",
+
+            "I",
+
+            "U",
+
+            "BE"
+        ];
+
+
+        // ----------------------------------------------------
+        // 表示
+        // ----------------------------------------------------
+
+        const MOUTH_DISPLAY = {
+
+            A:
+                "あ",
+
+            I:
+                "い",
+
+            U:
+                "う",
+
+            BE:
+                "べ"
+        };
+
+
+        // ----------------------------------------------------
+        // キャリブレーション指示
+        // ----------------------------------------------------
+
+        const CALIBRATION_INSTRUCTIONS = {
+
+            A:
+                "口を大きく開けてください",
+
+            I:
+                "口を横に広げてください",
+
+            U:
+                "口を前にすぼめてください",
+
+            BE:
+                "口を開けて舌を出してください"
+        };
+
+
+        // ====================================================
+        // DOM
+        // ====================================================
+
+        const setupScreen =
+            document.getElementById(
+                "setupScreen"
+            );
+
+
+        const calibrationScreen =
+            document.getElementById(
+                "calibrationScreen"
+            );
+
+
+        const readyScreen =
+            document.getElementById(
+                "readyScreen"
+            );
+
+
+        const countdownScreen =
+            document.getElementById(
+                "countdownScreen"
+            );
+
+
+        const experimentScreen =
+            document.getElementById(
+                "experimentScreen"
+            );
+
+
+        const finishScreen =
+            document.getElementById(
+                "finishScreen"
+            );
+
+
+        const sessionIdInput =
+            document.getElementById(
+                "sessionIdInput"
+            );
+
+
+        const prepareCameraButton =
+            document.getElementById(
+                "prepareCameraButton"
+            );
+
+
+        const startCalibrationButton =
+            document.getElementById(
+                "startCalibrationButton"
+            );
+
+
+        const cameraStatus =
+            document.getElementById(
+                "cameraStatus"
+            );
+
+
+        const calibrationMouth =
+            document.getElementById(
+                "calibrationMouth"
+            );
+
+
+        const calibrationInstruction =
+            document.getElementById(
+                "calibrationInstruction"
+            );
+
+
+        const calibrationStatus =
+            document.getElementById(
+                "calibrationStatus"
+            );
+
+
+        const calibrationProgressText =
+            document.getElementById(
+                "calibrationProgressText"
+            );
+
+
+        const calibrationProgressBar =
+            document.getElementById(
+                "calibrationProgressBar"
+            );
+
+
+        const startExperimentButton =
+            document.getElementById(
+                "startExperimentButton"
+            );
+
+
+        const countdownText =
+            document.getElementById(
+                "countdownText"
+            );
+
+
+        const setDisplay =
+            document.getElementById(
+                "setDisplay"
+            );
+
+
+        const mouthDisplay =
+            document.getElementById(
+                "mouthDisplay"
+            );
+
+
+        const sendDataButton =
+            document.getElementById(
+                "sendDataButton"
+            );
+
+
+        const backupButton =
+            document.getElementById(
+                "backupButton"
+            );
+
+
+        const sendStatus =
+            document.getElementById(
+                "sendStatus"
+            );
+
+
+        const webcam =
+            document.getElementById(
+                "webcam"
+            );
+
+
+        const cameraContainer =
+            document.getElementById(
+                "cameraContainer"
+            );
+
+
+        // ====================================================
+        // MediaPipe状態
+        // ====================================================
+
+        let faceLandmarker =
+            null;
+
+
+        let cameraStream =
+            null;
+
+
+        let mediaPipeRunning =
+            false;
+
+
+        // ----------------------------------------------------
+        // 同じvideoフレームへの重複推論防止
+        // ----------------------------------------------------
+
+        let lastVideoTime =
+            -1;
+
+
+        // ----------------------------------------------------
+        // InferenceId
+        // ----------------------------------------------------
+        //
+        // MediaPipe推論結果を取得するたびに+1。
+        //
+        // MouthLogの0.1秒記録とは独立。
+        //
+        // 例えば：
+        //
+        // Time     InferenceId
+        // 0.10     100
+        // 0.20     100
+        // 0.30     101
+        //
+        // なら、最初の2ログは
+        // 同じ推論結果を参照したと分かる。
+        // ----------------------------------------------------
+
+        let inferenceCounter =
+            0;
+
+
+        // ----------------------------------------------------
+        // 最新MediaPipe結果
+        // ----------------------------------------------------
+
+        let latestMouthData = {
+
+            faceDetected:
+                false,
+
+            jaw:
+                0,
+
+            smile:
+                0,
+
+            pucker:
+                0,
+
+            timestamp:
+                0,
+
+            inferenceId:
+                0
+        };
+
+
+        // ====================================================
+        // Session
+        // ====================================================
+
+        let sessionId =
+            "";
+
+
+        // ====================================================
+        // CalibrationResult
+        // ====================================================
+
+        let calibrationResult = {
+
+            A: {
+
+                jaw:
+                    0,
+
+                smile:
+                    0,
+
+                pucker:
+                    0
+            },
+
+
+            I: {
+
+                jaw:
+                    0,
+
+                smile:
+                    0,
+
+                pucker:
+                    0
+            },
+
+
+            U: {
+
+                jaw:
+                    0,
+
+                smile:
+                    0,
+
+                pucker:
+                    0
+            },
+
+
+            BE: {
+
+                jaw:
+                    0,
+
+                smile:
+                    0,
+
+                pucker:
+                    0
+            }
+        };
+
+
+        // ====================================================
+        // 認識状態
+        // ====================================================
+
+        let beStartTime =
+            null;
+
+
+        let lastRecognized =
+            "N";
+
+
+        // ====================================================
+        // 実験状態
+        // ====================================================
+
+        let experimentRunning =
+            false;
+
+
+        let experimentStartTime =
+            0;
+
+
+        let experimentAnimationFrame =
+            null;
+
+
+        let logTimer =
+            null;
+
+
+        // ----------------------------------------------------
+        // 現在提示中の口形
+        //
+        // A / I / U / BE
+        // ----------------------------------------------------
+
+        let currentTargetMouth =
+            "A";
+
+
+        // ====================================================
+        // MouthLog
+        // ====================================================
+
+        let mouthLogs =
+            [];
+
+
+        // ====================================================
+        // 送信
+        // ====================================================
+
+        let dataSent =
+            false;
+
+
+        // ====================================================
+        // 初期化
+        // ====================================================
+
+        initializePage();
+
+
+        function initializePage() {
+
+            // ------------------------------------------------
+            // カメラプレビュー
+            // ------------------------------------------------
+
+            if (
+                !SHOW_CAMERA_PREVIEW
+            ) {
+
+                cameraContainer.style.display =
+                    "none";
+            }
+
+
+            // ------------------------------------------------
+            // Events
+            // ------------------------------------------------
+
+            prepareCameraButton.addEventListener(
+
+                "click",
+
+                prepareCamera
+            );
+
+
+            startCalibrationButton.addEventListener(
+
+                "click",
+
+                startCalibration
+            );
+
+
+            startExperimentButton.addEventListener(
+
+                "click",
+
+                startCountdown
+            );
+
+
+            sendDataButton.addEventListener(
+
+                "click",
+
+                sendData
+            );
+
+
+            backupButton.addEventListener(
+
+                "click",
+
+                downloadBackup
+            );
+        }
+
+
+        // ====================================================
+        // 画面切替
+        // ====================================================
+
+        function showScreen(
+            targetScreen
+        ) {
+
+            const screens = [
+
+                setupScreen,
+
+                calibrationScreen,
+
+                readyScreen,
+
+                countdownScreen,
+
+                experimentScreen,
+
+                finishScreen
+            ];
+
+
+            for (
+                const screen of screens
+            ) {
+
+                screen.classList.add(
+                    "hidden"
+                );
+            }
+
+
+            targetScreen.classList.remove(
+                "hidden"
+            );
+        }
+
+
+        // ====================================================
+        // カメラ準備
+        // ====================================================
+
+        async function prepareCamera() {
+
+            // ------------------------------------------------
+            // SessionID
+            // ------------------------------------------------
+
+            sessionId =
+                sessionIdInput.value.trim();
+
+
+            if (
+                !sessionId
+            ) {
+
+                alert(
+                    "Session IDを入力してください。"
+                );
+
+                return;
+            }
+
+
+            prepareCameraButton.disabled =
+                true;
+
+
+            sessionIdInput.disabled =
+                true;
+
+
+            cameraStatus.textContent =
+                "カメラを起動しています...";
+
+
+            try {
+
+                // ============================================
+                // Camera
+                // ============================================
+
+                cameraStream =
+                    await navigator.mediaDevices.getUserMedia({
+
+                        video: {
+
+                            facingMode:
+                                "user",
+
+                            width: {
+
+                                ideal:
+                                    640
+                            },
+
+                            height: {
+
+                                ideal:
+                                    480
+                            }
+                        },
+
+                        audio:
+                            false
+                    });
+
+
+                webcam.srcObject =
+                    cameraStream;
+
+
+                await webcam.play();
+
+
+                // ============================================
+                // MediaPipe
+                // ============================================
+
+                cameraStatus.textContent =
+                    "MediaPipeを準備しています...";
+
+
+                await initializeMediaPipe();
+
+
+                // ============================================
+                // 推論開始
+                // ============================================
+
+                mediaPipeRunning =
+                    true;
+
+
+                requestAnimationFrame(
+                    mediaPipeLoop
+                );
+
+
+                // ============================================
+                // 顔検出待ち
+                // ============================================
+
+                cameraStatus.textContent =
+                    "顔をカメラに映してください...";
+
+
+                const detected =
+                    await waitForFaceDetection(
+                        10000
+                    );
+
+
+                if (
+                    !detected
+                ) {
+
+                    throw new Error(
+                        "顔を検出できませんでした。"
+                    );
+                }
+
+
+                // ============================================
+                // Ready
+                // ============================================
+
+                cameraStatus.textContent =
+                    "準備完了";
+
+
+                startCalibrationButton.disabled =
+                    false;
+
+            }
+            catch (
+                error
+            ) {
+
+                console.error(
+                    error
+                );
+
+
+                cameraStatus.textContent =
+                    "準備に失敗しました。";
+
+
+                prepareCameraButton.disabled =
+                    false;
+
+
+                sessionIdInput.disabled =
+                    false;
+
+
+                alert(
+
+                    "カメラまたはMediaPipeの準備に失敗しました。\n\n" +
+
+                    error.message
+                );
+            }
+        }
+
+
+        // ====================================================
+        // MediaPipe初期化
+        // ====================================================
+
+        async function initializeMediaPipe() {
+
+            const vision =
+                await FilesetResolver.forVisionTasks(
+
+                    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22/wasm"
+                );
+
+
+            faceLandmarker =
+                await FaceLandmarker.createFromOptions(
+
+                    vision,
+
+                    {
+
+                        baseOptions: {
+
+                            modelAssetPath:
+
+                                "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+
+                            delegate:
+                                "GPU"
+                        },
+
+
+                        runningMode:
+                            "VIDEO",
+
+
+                        numFaces:
+                            1,
+
+
+                        outputFaceBlendshapes:
+                            true,
+
+
+                        outputFacialTransformationMatrixes:
+                            false
+                    }
+                );
+        }
+
+
+        // ====================================================
+        // MediaPipe Loop
+        // ====================================================
+
+        function mediaPipeLoop() {
+
+            if (
+                !mediaPipeRunning
+            ) {
+
+                return;
+            }
+
+
+            // ------------------------------------------------
+            // 新しいVideoフレームの場合のみ推論
+            // ------------------------------------------------
+
+            if (
+                webcam.readyState >= 2 &&
+                webcam.currentTime !== lastVideoTime
+            ) {
+
+                lastVideoTime =
+                    webcam.currentTime;
+
+
+                const timestamp =
+                    performance.now();
+
+
+                try {
+
+                    // ========================================
+                    // MediaPipe推論
+                    // ========================================
+
+                    const result =
+                        faceLandmarker.detectForVideo(
+
+                            webcam,
+
+                            timestamp
+                        );
+
+
+                    // ========================================
+                    // 結果処理
+                    // ========================================
+
+                    processMediaPipeResult(
+
+                        result,
+
+                        timestamp
+                    );
+
+                }
+                catch (
+                    error
+                ) {
+
+                    console.error(
+
+                        "MediaPipe Error:",
+
+                        error
+                    );
+                }
+            }
+
+
+            requestAnimationFrame(
+                mediaPipeLoop
+            );
+        }
+
+
+        // ====================================================
+        // MediaPipe結果処理
+        // ====================================================
+
+        function processMediaPipeResult(
+            result,
+            timestamp
+        ) {
+
+            // ------------------------------------------------
+            // 新しい推論結果
+            // ------------------------------------------------
+
+            inferenceCounter++;
+
+
+            // ------------------------------------------------
+            // 顔未検出
+            // ------------------------------------------------
+
+            if (
+                !result ||
+                !result.faceBlendshapes ||
+                result.faceBlendshapes.length === 0
+            ) {
+
+                latestMouthData = {
+
+                    faceDetected:
+                        false,
+
+                    jaw:
+                        0,
+
+                    smile:
+                        0,
+
+                    pucker:
+                        0,
+
+                    timestamp:
+                        timestamp,
+
+                    inferenceId:
+                        inferenceCounter
+                };
+
+
+                return;
+            }
+
+
+            // ------------------------------------------------
+            // BlendShape
+            // ------------------------------------------------
+
+            const categories =
+                result.faceBlendshapes[0].categories;
+
+
+            // jawOpen
+            const jaw =
+                getBlendshapeScore(
+
+                    categories,
+
+                    "jawOpen"
+                );
+
+
+            // mouthSmileLeft
+            const smileLeft =
+                getBlendshapeScore(
+
+                    categories,
+
+                    "mouthSmileLeft"
+                );
+
+
+            // mouthSmileRight
+            const smileRight =
+                getBlendshapeScore(
+
+                    categories,
+
+                    "mouthSmileRight"
+                );
+
+
+            // Unity WebMouthReceiverと同様に
+            // 左右の大きい方をSmileとして使用
+            const smile =
+                Math.max(
+
+                    smileLeft,
+
+                    smileRight
+                );
+
+
+            // mouthPucker
+            const pucker =
+                getBlendshapeScore(
+
+                    categories,
+
+                    "mouthPucker"
+                );
+
+
+            // ------------------------------------------------
+            // 最新推論結果
+            // ------------------------------------------------
+
+            latestMouthData = {
+
+                faceDetected:
+                    true,
+
+                jaw:
+                    jaw,
+
+                smile:
+                    smile,
+
+                pucker:
+                    pucker,
+
+                timestamp:
+                    timestamp,
+
+                inferenceId:
+                    inferenceCounter
+            };
+        }
+
+
+        // ====================================================
+        // BlendShape取得
+        // ====================================================
+
+        function getBlendshapeScore(
+            categories,
+            name
+        ) {
+
+            const item =
+                categories.find(
+
+                    category =>
+
+                        category.categoryName ===
+                        name
+                );
+
+
+            if (
+                !item
+            ) {
+
+                return 0;
+            }
+
+
+            return item.score;
+        }
+
+
+        // ====================================================
+        // 顔検出待ち
+        // ====================================================
+
+        async function waitForFaceDetection(
+            timeoutMs
+        ) {
+
+            const start =
+                performance.now();
+
+
+            while (
+                performance.now() -
+                start <
+                timeoutMs
+            ) {
+
+                if (
+                    latestMouthData.faceDetected
+                ) {
+
+                    return true;
+                }
+
+
+                await sleep(
+                    100
+                );
+            }
+
+
+            return false;
+        }
+
+
+        // ====================================================
+        // キャリブレーション開始
+        // ====================================================
+
+        async function startCalibration() {
+
+            startCalibrationButton.disabled =
+                true;
+
+
+            showScreen(
+                calibrationScreen
+            );
+
+
+            try {
+
+                // ============================================
+                // A
+                // ============================================
+
+                calibrationResult.A =
+                    await calibrateOneMouth(
+
+                        "A",
+
+                        1
+                    );
+
+
+                // ============================================
+                // I
+                // ============================================
+
+                calibrationResult.I =
+                    await calibrateOneMouth(
+
+                        "I",
+
+                        2
+                    );
+
+
+                // ============================================
+                // U
+                // ============================================
+
+                calibrationResult.U =
+                    await calibrateOneMouth(
+
+                        "U",
+
+                        3
+                    );
+
+
+                // ============================================
+                // BE
+                // ============================================
+
+                calibrationResult.BE =
+                    await calibrateOneMouth(
+
+                        "BE",
+
+                        4
+                    );
+
+
+                // ============================================
+                // Console確認
+                // ============================================
+
+                console.log(
+                    "===== Calibration Result ====="
+                );
+
+
+                console.table(
+                    calibrationResult
+                );
+
+
+                // ============================================
+                // 完了
+                // ============================================
+
+                calibrationMouth.textContent =
+                    "OK!";
+
+
+                calibrationInstruction.textContent =
+                    "準備完了";
+
+
+                calibrationStatus.textContent =
+                    "実験を開始できます";
+
+
+                calibrationProgressBar.style.width =
+                    "100%";
+
+
+                await sleep(
+                    800
+                );
+
+
+                showScreen(
+                    readyScreen
+                );
+
+            }
+            catch (
+                error
+            ) {
+
+                console.error(
+                    error
+                );
+
+
+                alert(
+
+                    "キャリブレーション中にエラーが発生しました。\n\n" +
+
+                    error.message
+                );
+
+
+                showScreen(
+                    setupScreen
+                );
+
+
+                startCalibrationButton.disabled =
+                    false;
+            }
+        }
+
+
+        // ====================================================
+        // 1口形キャリブレーション
+        // ====================================================
+
+        async function calibrateOneMouth(
+            mouthType,
+            number
+        ) {
+
+            // ------------------------------------------------
+            // UI
+            // ------------------------------------------------
+
+            calibrationMouth.textContent =
+                MOUTH_DISPLAY[
+                    mouthType
+                ];
+
+
+            calibrationInstruction.textContent =
+                CALIBRATION_INSTRUCTIONS[
+                    mouthType
+                ];
+
+
+            calibrationProgressText.textContent =
+                `${number} / 4`;
+
+
+            calibrationStatus.textContent =
+                "準備...";
+
+
+            calibrationProgressBar.style.width =
+                "0%";
+
+
+            // ------------------------------------------------
+            // 準備時間
+            //
+            // Unity = 0.5秒
+            // ------------------------------------------------
+
+            await sleep(
+                CALIBRATION_PREPARE_TIME_MS
+            );
+
+
+            // ------------------------------------------------
+            // 測定開始
+            // ------------------------------------------------
+
+            calibrationStatus.textContent =
+                "そのままキープ！";
+
+
+            const jawSamples =
+                [];
+
+
+            const smileSamples =
+                [];
+
+
+            const puckerSamples =
+                [];
+
+
+            const measurementStart =
+                performance.now();
+
+
+            // ------------------------------------------------
+            // 1.5秒測定
+            // ------------------------------------------------
+
+            while (
+                performance.now() -
+                measurementStart <
+                CALIBRATION_MEASUREMENT_TIME_MS
+            ) {
+
+                // --------------------------------------------
+                // Unity版はUpdateごとに
+                // WebMouthReceiverの最新値を追加している。
+                //
+                // そのためWeb版でも最新推論値を
+                // 約16ms周期で参照する。
+                // --------------------------------------------
+
+                if (
+                    latestMouthData.faceDetected
+                ) {
+
+                    jawSamples.push(
+                        latestMouthData.jaw
+                    );
+
+
+                    smileSamples.push(
+                        latestMouthData.smile
+                    );
+
+
+                    puckerSamples.push(
+                        latestMouthData.pucker
+                    );
+                }
+
+
+                // --------------------------------------------
+                // Progress
+                // --------------------------------------------
+
+                const elapsed =
+                    performance.now() -
+                    measurementStart;
+
+
+                const progress =
+                    Math.min(
+
+                        elapsed /
+                        CALIBRATION_MEASUREMENT_TIME_MS,
+
+                        1
+                    );
+
+
+                calibrationProgressBar.style.width =
+                    `${progress * 100}%`;
+
+
+                await sleep(
+                    16
+                );
+            }
+
+
+            // ------------------------------------------------
+            // データなし
+            // ------------------------------------------------
+
+            if (
+                jawSamples.length === 0
+            ) {
+
+                throw new Error(
+
+                    `${MOUTH_DISPLAY[mouthType]} の測定中に顔情報を取得できませんでした。`
+                );
+            }
+
+
+            // ------------------------------------------------
+            // Median
+            // ------------------------------------------------
+
+            const result = {
+
+                jaw:
+                    calculateMedian(
+                        jawSamples
+                    ),
+
+                smile:
+                    calculateMedian(
+                        smileSamples
+                    ),
+
+                pucker:
+                    calculateMedian(
+                        puckerSamples
+                    )
+            };
+
+
+            console.log(
+
+                `[Calibration ${mouthType}]`,
+
+                result,
+
+                `Samples=${jawSamples.length}`
+            );
+
+
+            return result;
+        }
+
+
+        // ====================================================
+        // Median
+        // ====================================================
+
+        function calculateMedian(
+            values
+        ) {
+
+            if (
+                !values ||
+                values.length === 0
+            ) {
+
+                return 0;
+            }
+
+
+            const sorted =
+                [...values].sort(
+
+                    (a, b) =>
+                        a - b
+                );
+
+
+            const middle =
+                Math.floor(
+
+                    sorted.length /
+                    2
+                );
+
+
+            // ------------------------------------------------
+            // 偶数
+            // ------------------------------------------------
+
+            if (
+                sorted.length %
+                2 ===
+                0
+            ) {
+
+                return (
+
+                    sorted[middle - 1] +
+
+                    sorted[middle]
+
+                ) / 2;
+            }
+
+
+            // ------------------------------------------------
+            // 奇数
+            // ------------------------------------------------
+
+            return sorted[
+                middle
+            ];
+        }
+
+
+        // ====================================================
+        // Countdown
+        // ====================================================
+
+        async function startCountdown() {
+
+            startExperimentButton.disabled =
+                true;
+
+
+            showScreen(
+                countdownScreen
+            );
+
+
+            countdownText.textContent =
+                "3";
+
+
+            await sleep(
+                1000
+            );
+
+
+            countdownText.textContent =
+                "2";
+
+
+            await sleep(
+                1000
+            );
+
+
+            countdownText.textContent =
+                "1";
+
+
+            await sleep(
+                1000
+            );
+
+
+            countdownText.textContent =
+                "開始";
+
+
+            await sleep(
+                500
+            );
+
+
+            startExperiment();
+        }
+
+
+        // ====================================================
+        // 実験開始
+        // ====================================================
+
+        function startExperiment() {
+
+            // ------------------------------------------------
+            // ログ初期化
+            // ------------------------------------------------
+
+            mouthLogs =
+                [];
+
+
+            dataSent =
+                false;
+
+
+            // ------------------------------------------------
+            // 認識状態
+            // ------------------------------------------------
+
+            beStartTime =
+                null;
+
+
+            lastRecognized =
+                "N";
+
+
+            currentTargetMouth =
+                "A";
+
+
+            // ------------------------------------------------
+            // 実験開始時刻
+            // ------------------------------------------------
+
+            experimentRunning =
+                true;
+
+
+            experimentStartTime =
+                performance.now();
+
+
+            // ------------------------------------------------
+            // UI
+            // ------------------------------------------------
+
+            showScreen(
+                experimentScreen
+            );
+
+
+            setDisplay.textContent =
+                `1 / ${TOTAL_SETS}`;
+
+
+            mouthDisplay.textContent =
+                MOUTH_DISPLAY.A;
+
+
+            // ------------------------------------------------
+            // 0.1秒ログ
+            // ------------------------------------------------
+
+            logTimer =
+                setInterval(
+
+                    recordMouthLog,
+
+                    LOG_INTERVAL_MS
+                );
+
+
+            // ------------------------------------------------
+            // 実験更新
+            // ------------------------------------------------
+
+            updateExperiment();
+        }
+
+
+        // ====================================================
+        // 実験更新
+        // ====================================================
+        //
+        // performance.now()から
+        // 現在のTrialを直接計算する。
+        //
+        // setTimeoutを40回連鎖しないため、
+        // タイマー誤差が累積しにくい。
+        // ====================================================
+
+        function updateExperiment() {
+
+            if (
+                !experimentRunning
+            ) {
+
+                return;
+            }
+
+
+            const now =
+                performance.now();
+
+
+            const elapsed =
+                now -
+                experimentStartTime;
+
+
+            // ------------------------------------------------
+            // 40口形 × 1秒 = 40秒
+            // ------------------------------------------------
+
+            const totalDuration =
+                TOTAL_TRIALS *
+                MOUTH_DURATION_MS;
+
+
+            // ------------------------------------------------
+            // 終了
+            // ------------------------------------------------
+
+            if (
+                elapsed >=
+                totalDuration
+            ) {
+
+                finishExperiment();
+
+                return;
+            }
+
+
+            // ------------------------------------------------
+            // Trial
+            //
+            // 0 ～ 39
+            // ------------------------------------------------
+
+            const trialIndex =
+                Math.floor(
+
+                    elapsed /
+                    MOUTH_DURATION_MS
+                );
+
+
+            // ------------------------------------------------
+            // Set
+            //
+            // 0 ～ 9
+            // ------------------------------------------------
+
+            const setIndex =
+                Math.floor(
+
+                    trialIndex /
+                    MOUTHS_PER_SET
+                );
+
+
+            // ------------------------------------------------
+            // Mouth
+            //
+            // 0 A
+            // 1 I
+            // 2 U
+            // 3 BE
+            // ------------------------------------------------
+
+            const mouthIndex =
+                trialIndex %
+                MOUTHS_PER_SET;
+
+
+            const targetMouth =
+                MOUTH_SEQUENCE[
+                    mouthIndex
+                ];
+
+
+            // ------------------------------------------------
+            // TargetMouth保存
+            // ------------------------------------------------
+
+            currentTargetMouth =
+                targetMouth;
+
+
+            // ------------------------------------------------
+            // UI
+            // ------------------------------------------------
+
+            setDisplay.textContent =
+                `${setIndex + 1} / ${TOTAL_SETS}`;
+
+
+            mouthDisplay.textContent =
+                MOUTH_DISPLAY[
+                    targetMouth
+                ];
+
+
+            // ------------------------------------------------
+            // Next
+            // ------------------------------------------------
+
+            experimentAnimationFrame =
+                requestAnimationFrame(
+                    updateExperiment
+                );
+        }
+
+
+        // ====================================================
+        // 口形認識
+        // ====================================================
+
+        function recognizeCurrentMouth(
+            jaw,
+            smile,
+            pucker,
+            now
+        ) {
+
+            // ------------------------------------------------
+            // 各キャリブレーション基準点との距離
+            // ------------------------------------------------
+
+            const distA =
+                calculateDistance(
+
+                    jaw,
+
+                    smile,
+
+                    pucker,
+
+                    calibrationResult.A
+                );
+
+
+            const distI =
+                calculateDistance(
+
+                    jaw,
+
+                    smile,
+
+                    pucker,
+
+                    calibrationResult.I
+                );
+
+
+            const distU =
+                calculateDistance(
+
+                    jaw,
+
+                    smile,
+
+                    pucker,
+
+                    calibrationResult.U
+                );
+
+
+            const distBE =
+                calculateDistance(
+
+                    jaw,
+
+                    smile,
+
+                    pucker,
+
+                    calibrationResult.BE
+                );
+
+
+            // ------------------------------------------------
+            // Neutral
+            // ------------------------------------------------
+
+            const maxValue =
+                Math.max(
+
+                    jaw,
+
+                    smile,
+
+                    pucker
+                );
+
+
+            if (
+                maxValue <
+                MOUTH_DEAD_ZONE
+            ) {
+
+                beStartTime =
+                    null;
+
+
+                lastRecognized =
+                    "N";
+
+
+                return {
+
+                    recognized:
+                        "N",
+
+                    distA:
+                        distA,
+
+                    distI:
+                        distI,
+
+                    distU:
+                        distU,
+
+                    distBE:
+                        distBE
+                };
+            }
+
+
+            // ------------------------------------------------
+            // 最小距離
+            // ------------------------------------------------
+            //
+            // Unity版と同じくAから比較開始。
+            // ------------------------------------------------
+
+            let recognized =
+                "A";
+
+
+            let minDistance =
+                distA;
+
+
+            // I
+            if (
+                distI <
+                minDistance
+            ) {
+
+                minDistance =
+                    distI;
+
+
+                recognized =
+                    "I";
+            }
+
+
+            // U
+            if (
+                distU <
+                minDistance
+            ) {
+
+                minDistance =
+                    distU;
+
+
+                recognized =
+                    "U";
+            }
+
+
+            // BE
+            if (
+                distBE <
+                minDistance
+            ) {
+
+                minDistance =
+                    distBE;
+
+
+                recognized =
+                    "BE";
+            }
+
+
+            // ------------------------------------------------
+            // BE
+            // ------------------------------------------------
+            //
+            // BEだけ0.15秒継続で確定。
+            // ------------------------------------------------
+
+            if (
+                recognized ===
+                "BE"
+            ) {
+
+                // --------------------------------------------
+                // BE候補開始
+                // --------------------------------------------
+
+                if (
+                    beStartTime ===
+                    null
+                ) {
+
+                    beStartTime =
+                        now;
+                }
+
+
+                // --------------------------------------------
+                // 0.15秒以上
+                // --------------------------------------------
+
+                if (
+                    now -
+                    beStartTime >=
+                    BE_HOLD_TIME_MS
+                ) {
+
+                    lastRecognized =
+                        "BE";
+                }
+
+
+                // --------------------------------------------
+                // 0.15秒未満なら
+                // 前回の認識結果を維持
+                // --------------------------------------------
+
+                return {
+
+                    recognized:
+                        lastRecognized,
+
+                    distA:
+                        distA,
+
+                    distI:
+                        distI,
+
+                    distU:
+                        distU,
+
+                    distBE:
+                        distBE
+                };
+            }
+
+
+            // ------------------------------------------------
+            // BE候補解除
+            // ------------------------------------------------
+
+            beStartTime =
+                null;
+
+
+            // ------------------------------------------------
+            // A / I / U
+            // ------------------------------------------------
+
+            lastRecognized =
+                recognized;
+
+
+            return {
+
+                recognized:
+                    recognized,
+
+                distA:
+                    distA,
+
+                distI:
+                    distI,
+
+                distU:
+                    distU,
+
+                distBE:
+                    distBE
+            };
+        }
+
+
+        // ====================================================
+        // ユークリッド距離
+        // ====================================================
+
+        function calculateDistance(
+            jaw,
+            smile,
+            pucker,
+            target
+        ) {
+
+            const jawDiff =
+                jaw -
+                target.jaw;
+
+
+            const smileDiff =
+                smile -
+                target.smile;
+
+
+            const puckerDiff =
+                pucker -
+                target.pucker;
+
+
+            return Math.sqrt(
+
+                jawDiff *
+                jawDiff
+
+                +
+
+                smileDiff *
+                smileDiff
+
+                +
+
+                puckerDiff *
+                puckerDiff
+            );
+        }
+
+
+        // ====================================================
+        // MouthLog
+        // ====================================================
+
+        function recordMouthLog() {
+
+            if (
+                !experimentRunning
+            ) {
+
+                return;
+            }
+
+
+            // ------------------------------------------------
+            // 顔未検出
+            // ------------------------------------------------
+            //
+            // Jaw=0等を実測値として保存しない。
+            // ------------------------------------------------
+
+            if (
+                !latestMouthData.faceDetected
+            ) {
+
+                return;
+            }
+
+
+            const now =
+                performance.now();
+
+
+            // ------------------------------------------------
+            // Time
+            //
+            // 実験開始からの経過秒
+            // ------------------------------------------------
+
+            const elapsedSeconds =
+                (
+                    now -
+                    experimentStartTime
+                )
+                /
+                1000;
+
+
+            // ------------------------------------------------
+            // MediaPipe値
+            // ------------------------------------------------
+
+            const jaw =
+                latestMouthData.jaw;
+
+
+            const smile =
+                latestMouthData.smile;
+
+
+            const pucker =
+                latestMouthData.pucker;
+
+
+            // ------------------------------------------------
+            // 認識
+            // ------------------------------------------------
+
+            const recognition =
+                recognizeCurrentMouth(
+
+                    jaw,
+
+                    smile,
+
+                    pucker,
+
+                    now
+                );
+
+
+            // ------------------------------------------------
+            // Log
+            // ------------------------------------------------
+
+            mouthLogs.push({
+
+                // ============================================
+                // SessionID
+                // ============================================
+
+                SessionID:
+                    sessionId,
+
+
+                // ============================================
+                // Time
+                //
+                // 実験開始からの経過秒
+                // ============================================
+
+                Time:
+                    elapsedSeconds,
+
+
+                // ============================================
+                // TargetMouth
+                //
+                // その時点で画面に提示している口形。
+                //
+                // A / I / U / BE
+                // ============================================
+
+                TargetMouth:
+                    currentTargetMouth,
+
+
+                // ============================================
+                // BlendShape
+                // ============================================
+
+                Jaw:
+                    jaw,
+
+
+                Smile:
+                    smile,
+
+
+                Pucker:
+                    pucker,
+
+
+                // ============================================
+                // Distance
+                // ============================================
+
+                DistA:
+                    recognition.distA,
+
+
+                DistI:
+                    recognition.distI,
+
+
+                DistU:
+                    recognition.distU,
+
+
+                DistBE:
+                    recognition.distBE,
+
+
+                // ============================================
+                // Recognized
+                //
+                // A / I / U / BE / N
+                //
+                // 参加者には表示しない。
+                // ============================================
+
+                Recognized:
+                    recognition.recognized,
+
+
+                // ============================================
+                // InferenceId
+                //
+                // MediaPipe推論結果の番号。
+                //
+                // 同じIDが複数行
+                // =
+                // 同じ推論結果を0.1秒ログが
+                // 複数回参照した。
+                // ============================================
+
+                InferenceId:
+                    latestMouthData.inferenceId,
+
+
+                // ============================================
+                // Lane
+                //
+                // 非ゲーム条件では使用しない。
+                //
+                // -1 = 未使用
+                // ============================================
+
+                Lane:
+                    -1
+            });
+        }
+
+
+        // ====================================================
+        // 実験終了
+        // ====================================================
+
+        function finishExperiment() {
+
+            experimentRunning =
+                false;
+
+
+            // ------------------------------------------------
+            // Log停止
+            // ------------------------------------------------
+
+            if (
+                logTimer !==
+                null
+            ) {
+
+                clearInterval(
+                    logTimer
+                );
+
+
+                logTimer =
+                    null;
+            }
+
+
+            // ------------------------------------------------
+            // AnimationFrame停止
+            // ------------------------------------------------
+
+            if (
+                experimentAnimationFrame !==
+                null
+            ) {
+
+                cancelAnimationFrame(
+                    experimentAnimationFrame
+                );
+
+
+                experimentAnimationFrame =
+                    null;
+            }
+
+
+            // ------------------------------------------------
+            // 終了画面
+            // ------------------------------------------------
+
+            showScreen(
+                finishScreen
+            );
+
+
+            sendStatus.textContent =
+                "データはまだ送信されていません。";
+
+
+            console.log(
+                "Experiment Finished"
+            );
+
+
+            console.log(
+
+                "MouthLog Rows:",
+
+                mouthLogs.length
+            );
+        }
+
+
+        // ====================================================
+        // GAS送信
+        // ====================================================
+
+        async function sendData() {
+
+            // ------------------------------------------------
+            // 二重送信防止
+            // ------------------------------------------------
+
+            if (
+                dataSent
+            ) {
+
+                return;
+            }
+
+
+            // ------------------------------------------------
+            // GAS URL
+            // ------------------------------------------------
+
+            if (
+                GAS_URL ===
+                "ここにGASのWebアプリURL"
+            ) {
+
+                alert(
+                    "index.html 内の GAS_URL を設定してください。"
+                );
+
+
+                return;
+            }
+
+
+            // ------------------------------------------------
+            // UI
+            // ------------------------------------------------
+
+            sendDataButton.disabled =
+                true;
+
+
+            sendStatus.textContent =
+                "送信中...";
+
+
+            // ------------------------------------------------
+            // CalibrationResult
+            // ------------------------------------------------
+
+            const calibrationPayload = {
+
+                SessionID:
+                    sessionId,
+
+
+                DateTime:
+                    new Date().toISOString(),
+
+
+                // A
+                A_Jaw:
+                    calibrationResult.A.jaw,
+
+
+                A_Smile:
+                    calibrationResult.A.smile,
+
+
+                A_Pucker:
+                    calibrationResult.A.pucker,
+
+
+                // I
+                I_Jaw:
+                    calibrationResult.I.jaw,
+
+
+                I_Smile:
+                    calibrationResult.I.smile,
+
+
+                I_Pucker:
+                    calibrationResult.I.pucker,
+
+
+                // U
+                U_Jaw:
+                    calibrationResult.U.jaw,
+
+
+                U_Smile:
+                    calibrationResult.U.smile,
+
+
+                U_Pucker:
+                    calibrationResult.U.pucker,
+
+
+                // BE
+                BE_Jaw:
+                    calibrationResult.BE.jaw,
+
+
+                BE_Smile:
+                    calibrationResult.BE.smile,
+
+
+                BE_Pucker:
+                    calibrationResult.BE.pucker
+            };
+
+
+            // ------------------------------------------------
+            // 全データ
+            // ------------------------------------------------
+
+            const payload = {
+
+                calibration:
+                    calibrationPayload,
+
+
+                mouthLogs:
+                    mouthLogs
+            };
+
+
+            try {
+
+                // --------------------------------------------
+                // URLSearchParams
+                // --------------------------------------------
+
+                const body =
+                    new URLSearchParams();
+
+
+                body.append(
+
+                    "payload",
+
+                    JSON.stringify(
+                        payload
+                    )
+                );
+
+
+                // --------------------------------------------
+                // POST
+                // --------------------------------------------
+
+                const response =
+                    await fetch(
+
+                        GAS_URL,
+
+                        {
+
+                            method:
+                                "POST",
+
+                            body:
+                                body
+                        }
+                    );
+
+
+                // --------------------------------------------
+                // JSON
+                // --------------------------------------------
+
+                const result =
+                    await response.json();
+
+
+                // --------------------------------------------
+                // GAS Error
+                // --------------------------------------------
+
+                if (
+                    !result.success
+                ) {
+
+                    throw new Error(
+
+                        result.message ||
+
+                        "GAS側でエラーが発生しました。"
+                    );
+                }
+
+
+                // --------------------------------------------
+                // Success
+                // --------------------------------------------
+
+                dataSent =
+                    true;
+
+
+                sendStatus.textContent =
+
+                    "送信成功：" +
+
+                    "CalibrationResult 1行 / " +
+
+                    `MouthLog ${result.mouthLogRows}行`;
+
+
+                // 再送信防止
+                sendDataButton.disabled =
+                    true;
+
+
+                // バックアップは可能
+                backupButton.disabled =
+                    false;
+
+
+                console.log(
+
+                    "Send Success:",
+
+                    result
+                );
+
+            }
+            catch (
+                error
+            ) {
+
+                console.error(
+                    error
+                );
+
+
+                // --------------------------------------------
+                // データは削除しない
+                // --------------------------------------------
+
+                sendStatus.textContent =
+                    "送信失敗。データはブラウザ内に保持されています。";
+
+
+                // 再送信可能
+                sendDataButton.disabled =
+                    false;
+
+
+                alert(
+
+                    "データ送信に失敗しました。\n\n" +
+
+                    error.message
+                );
+            }
+        }
+
+
+        // ====================================================
+        // JSONバックアップ
+        // ====================================================
+
+        function downloadBackup() {
+
+            // ------------------------------------------------
+            // Calibration
+            // ------------------------------------------------
+
+            const calibrationPayload = {
+
+                SessionID:
+                    sessionId,
+
+
+                DateTime:
+                    new Date().toISOString(),
+
+
+                A_Jaw:
+                    calibrationResult.A.jaw,
+
+
+                A_Smile:
+                    calibrationResult.A.smile,
+
+
+                A_Pucker:
+                    calibrationResult.A.pucker,
+
+
+                I_Jaw:
+                    calibrationResult.I.jaw,
+
+
+                I_Smile:
+                    calibrationResult.I.smile,
+
+
+                I_Pucker:
+                    calibrationResult.I.pucker,
+
+
+                U_Jaw:
+                    calibrationResult.U.jaw,
+
+
+                U_Smile:
+                    calibrationResult.U.smile,
+
+
+                U_Pucker:
+                    calibrationResult.U.pucker,
+
+
+                BE_Jaw:
+                    calibrationResult.BE.jaw,
+
+
+                BE_Smile:
+                    calibrationResult.BE.smile,
+
+
+                BE_Pucker:
+                    calibrationResult.BE.pucker
+            };
+
+
+            // ------------------------------------------------
+            // Backup
+            // ------------------------------------------------
+
+            const backup = {
+
+                calibration:
+                    calibrationPayload,
+
+
+                mouthLogs:
+                    mouthLogs
+            };
+
+
+            // ------------------------------------------------
+            // JSON
+            // ------------------------------------------------
+
+            const json =
+                JSON.stringify(
+
+                    backup,
+
+                    null,
+
+                    2
+                );
+
+
+            // ------------------------------------------------
+            // Blob
+            // ------------------------------------------------
+
+            const blob =
+                new Blob(
+
+                    [json],
+
+                    {
+
+                        type:
+                            "application/json"
+                    }
+                );
+
+
+            // ------------------------------------------------
+            // URL
+            // ------------------------------------------------
+
+            const url =
+                URL.createObjectURL(
+                    blob
+                );
+
+
+            // ------------------------------------------------
+            // Download
+            // ------------------------------------------------
+
+            const anchor =
+                document.createElement(
+                    "a"
+                );
+
+
+            anchor.href =
+                url;
+
+
+            anchor.download =
+                `${sessionId}_NonGame_Backup.json`;
+
+
+            document.body.appendChild(
+                anchor
+            );
+
+
+            anchor.click();
+
+
+            anchor.remove();
+
+
+            URL.revokeObjectURL(
+                url
+            );
+        }
+
+
+        // ====================================================
+        // Sleep
+        // ====================================================
+
+        function sleep(
+            ms
+        ) {
+
+            return new Promise(
+
+                resolve =>
+
+                    setTimeout(
+
+                        resolve,
+
+                        ms
+                    )
+            );
+        }
+
+
+        // ====================================================
+        // ページ終了
+        // ====================================================
+
+        window.addEventListener(
+
+            "beforeunload",
+
+            () => {
+
+                // --------------------------------------------
+                // MediaPipe停止
+                // --------------------------------------------
+
+                mediaPipeRunning =
+                    false;
+
+
+                // --------------------------------------------
+                // Camera停止
+                // --------------------------------------------
+
+                if (
+                    cameraStream
+                ) {
+
+                    const tracks =
+                        cameraStream.getTracks();
+
+
+                    for (
+                        const track of tracks
+                    ) {
+
+                        track.stop();
+                    }
+                }
+
+
+                // --------------------------------------------
+                // FaceLandmarker解放
+                // --------------------------------------------
+
+                if (
+                    faceLandmarker
+                ) {
+
+                    try {
+
+                        faceLandmarker.close();
+
+                    }
+                    catch (
+                        error
+                    ) {
+
+                        console.warn(
+                            error
+                        );
+                    }
+                }
+            }
+        );
+
+    </script>
 
 </body>
 
